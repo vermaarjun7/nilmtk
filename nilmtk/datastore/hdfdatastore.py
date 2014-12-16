@@ -20,7 +20,7 @@ from nilmtk.docinherit import doc_inherit
 from pdb import set_trace as _breakpoint
 
 
-MAX_MEM_ALLOWANCE_IN_BYTES = 2**29 # 512 MBytes
+MAX_MEM_ALLOWANCE_IN_BYTES = 2**28 # 256 MBytes
 
 class HDFDataStore(DataStore):
 
@@ -82,7 +82,7 @@ class HDFDataStore(DataStore):
             section_start_i = coords[0]
             section_end_i   = coords[-1]
             del coords
-            slice_starts = xrange(section_start_i, section_end_i, chunksize)
+            slice_starts = xrange(section_start_i, section_end_i, chunksize) 
             n_chunks = int(np.ceil((section_end_i - section_start_i) / chunksize))
 
             if n_chunks > 1:
@@ -95,7 +95,7 @@ class HDFDataStore(DataStore):
                     chunk_end_i = section_end_i
                 chunk_end_i += 1
 
-                data = self.store.select(key=key, columns=cols, 
+                data = self.store.select(key=key, columns=cols,
                                          start=chunk_start_i, stop=chunk_end_i)
 
                 if len(data) <= 2:
